@@ -1,0 +1,50 @@
+Hi,
+
+I wanted to update you on a recent analysis we performed on our receipt, users and brand data. We've identified some 
+data quality issues that could potentially impact our reporting and analytics. Here are some:
+
+We found some missing values, Invalid characters, invalid length of barcodes, duplicate id's, earning points without spending amount in our datasets.
+we discovered these issues by running some SQL queries against our data. Below are some sample issues we found
+
+1. We have some missing values in all three datasets (receipt, users, brand).
+2. Some Brandcodes have barcodes instead of Brand code name.
+example:
+_id							barcode			brandcode
+5d6413156d5f3b23d1bc790a	511111205012	511111205012
+3. In Brand dataset we have Invalid Characters in name.
+example:
+_id							name
+5fb6adb8be37ce522e165cb8	LotriminÂ®
+5da6071ea60b87376833e34d	Alka-SeltzerÂ®
+4. some users who finished transaction by spending Zero but earned Points.
+example:
+_id		pointsEarned	totalspent	rewardsReceiptStatus
+5ff36dcc0a720f05230005b1	55	0	FINISHED
+5ff371130a7214ada10005aa	100	0	FINISHED
+5ff36ad40a7214ada1000585	55	0	FINISHED
+5. We have invalid length of barcodes in receipt datasets
+example:
+_id							barcode	barcode_length
+5ff1e1eb0a720f0523000575	4011	4
+5ff1e1bb0a720f052300056b	4011	4
+5ff1e1bb0a720f052300056b	28400642255	11
+5ff1e1a40a720f0523000569	46000832517	11
+
+We need to know about below questions to reslove the issues.
+
+Are there instances where detailed item information is missing or incomplete?
+What are the expected lengths for barcodes in our system?
+users data has duplicate id's are these expected?
+Invalid characters that are present in Brands name,How do users typically interact with our systems, and where might they introduce these characters?
+Why we are using barcodes for some barndcode names.
+
+We do often get failures in our production environment due to these issues which results in low performance of our system. 
+We can manually alter the data for now to run the batch loads but we need to address the issues that was mentioned in this mail to avoid failures
+in our production environment which inturn enhances the performance of our system.
+
+By addressing these data quality issues proactively, we can enhance the accuracy and reliability of our data, leading to better decision-making and insights for our business.
+
+Please let me know if you have any questions or if there's a good time to discuss this further.
+
+Best regards,
+Naveen.
